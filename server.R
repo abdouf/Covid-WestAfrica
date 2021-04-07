@@ -132,7 +132,7 @@ server <- function(input, output) {
       geom_line(aes(x=as.Date(Dates), y=1, colour = "base"), size = 1) +
       scale_colour_manual(name = " ",
                           values=c(base="black",Rt = "red"),
-                          labels=c(base="Transmission threshold", Rt="Reproduction number + 95% CI")) +
+                          labels=c(base="Continued spread threshold", Rt="Reproduction number + 95% CI")) +
       labs( x="Calendar dates", y="New infections per infected (Rt)"
             ,title = "Note: Only reported positive cases are considered"
       )+
@@ -205,11 +205,11 @@ server <- function(input, output) {
             legend.position = c(0.5, 0.99), legend.justification = c(1, 1))
   })
   # Vaccination data fraction
-  df_vaccinated_tg = data.frame(dates = rep(data_vaccinated_tg$dates,2),
+  df_fr_vaccinated_tg = data.frame(dates = rep(data_vaccinated_tg$dates,2),
                                 vaccinated = c(data_vaccinated_tg$fraction_vaccinated,data_vaccinated_tg$fraction_fully_vaccinated),
                                 gr = c(rep("Received 1 dose",nrow(data_vaccinated_tg)),rep("Fully vaccinated",nrow(data_vaccinated_tg))))
   output$fraction_vaccination_tg <- renderPlot({
-    ggplot(data = df_vaccinated_tg, aes(x=dates, y=vaccinated, fill=gr))+
+    ggplot(data = df_fr_vaccinated_tg, aes(x=dates, y=vaccinated, fill=gr))+
       geom_area(color='black', size=0.3, alpha=1) + # Puts a black line to separate the 2
       scale_fill_brewer(palette = 'Greens', direction = -1) +
       scale_y_continuous(labels = function(x) paste0(x, "%")) +
@@ -296,7 +296,7 @@ server <- function(input, output) {
       geom_line(aes(x=as.Date(Dates), y=1, colour = "base"), size = 1) +
       scale_colour_manual(name = " ",
                           values=c(base="black",Rt = "red"),
-                          labels=c(base="Transmission threshold", Rt="Reproduction number + 95% CI")) +
+                          labels=c(base="Continued spread threshold", Rt="Reproduction number + 95% CI")) +
       labs( x="Calendar dates", y="New infections per infected (Rt)"
             ,title = "Note: Only reported positive cases are considered"
       )+
@@ -368,11 +368,11 @@ server <- function(input, output) {
             legend.position = c(0.5, 0.99), legend.justification = c(1, 1))
   })
   # Vaccination data fraction
-  df_vaccinated_gh = data.frame(dates = rep(data_vaccinated_gh$dates,2),
+  df_fr_vaccinated_gh = data.frame(dates = rep(data_vaccinated_gh$dates,2),
                                 vaccinated = c(data_vaccinated_gh$fraction_vaccinated,data_vaccinated_gh$fraction_fully_vaccinated),
                                 gr = c(rep("Received 1 dose",nrow(data_vaccinated_gh)),rep("Fully vaccinated",nrow(data_vaccinated_gh))))
   output$fraction_vaccination_gh <- renderPlot({
-    ggplot(data = df_vaccinated_gh, aes(x=dates, y=vaccinated, fill=gr))+
+    ggplot(data = df_fr_vaccinated_gh, aes(x=dates, y=vaccinated, fill=gr))+
       geom_area(color='black', size=0.3, alpha=1) + # Puts a black line to separate the 2
       scale_fill_brewer(palette = 'Greens', direction = -1) +
       scale_y_continuous(labels = function(x) paste0(x, "%")) +
@@ -459,7 +459,7 @@ server <- function(input, output) {
       geom_line(aes(x=as.Date(Dates), y=1, colour = "base"), size = 1) +
       scale_colour_manual(name = " ",
                           values=c(base="black",Rt = "red"),
-                          labels=c(base="Transmission threshold", Rt="Reproduction number + 95% CI")) +
+                          labels=c(base="Continued spread threshold", Rt="Reproduction number + 95% CI")) +
       labs( x="Calendar dates", y="New infections per infected (Rt)"
             ,title = "Note: Only reported positive cases are considered"
       )+
@@ -531,7 +531,7 @@ server <- function(input, output) {
             legend.position = c(0.5, 0.99), legend.justification = c(1, 1))
   })
   # Vaccination data fraction
-  df_vaccinated_ng = data.frame(dates = rep(data_vaccinated_ng$dates,2),
+  df_fr_vaccinated_ng = data.frame(dates = rep(data_vaccinated_ng$dates,2),
                                 vaccinated = c(data_vaccinated_ng$fraction_vaccinated,data_vaccinated_ng$fraction_fully_vaccinated),
                                 gr = c(rep("Received 1 dose",nrow(data_vaccinated_ng)),rep("Fully vaccinated",nrow(data_vaccinated_ng))))
   output$fraction_vaccination_ng <- renderPlot({
