@@ -162,9 +162,9 @@ server <- function(input, output) {
     ggplot(data=df_tg[which(df_tg$Dates<=date_case_reported_tg),])+
       geom_bar(aes(x = as.Date(Dates,"%Y-%m-%d"), y=daily_interpolated_positive, colour = "Inc1"), stat = "identity")+
       geom_line(aes(x=as.Date(Dates,"%Y-%m-%d"), y=daily_smoothed_positive, colour = "Inc2"), size = 1)+
-      labs( x="Calendar date", y="Daily positive tests"
+      labs( x="Calendar date (month-year)", y="Daily positive tests"
       ) +
-      scale_x_date(date_breaks = paste0(tg_date_breaks1," days"), date_labels = "%b-%Y")+
+      scale_x_date(date_breaks = paste0(tg_date_breaks1," days"), date_labels = "%b-%y")+
       scale_colour_manual(name = " ",
                           values=c(Inc1="deepskyblue2",Inc2 = "blue"),
                           labels=c(Inc1="Positive tests", Inc2="7-day average positive tests")) +
@@ -190,10 +190,10 @@ server <- function(input, output) {
       scale_colour_manual(name = " ",
                           values=c(base="black",Rt = "red"),
                           labels=c(base="Continued spread threshold", Rt="Reproduction number + 95% CI")) +
-      labs( x="Calendar date", y="New infections per infected (Rt)"
+      labs( x="Calendar date (month-year)", y="New infections per infected (Rt)"
             ,title = "Note: Only reported positive cases are considered"
       )+
-      scale_x_date(date_breaks = paste0(tg_date_breaks1," days"),date_labels = "%b-%Y") +
+      scale_x_date(date_breaks = paste0(tg_date_breaks1," days"),date_labels = "%b-%y") +
       theme_linedraw() +
       theme_light()+
       theme(axis.text.x = element_text(angle = 0, hjust = 1),
@@ -206,9 +206,9 @@ server <- function(input, output) {
     ggplot(data=melt_tg, aes(x = Dates, y = Casedata, fill = Casetype))+
       geom_bar(stat = 'identity',position = 'dodge') +
       scale_fill_manual(" ", values = c("Active" = "deepskyblue1", "Deaths" = "black", "Recovered" = "goldenrod3")) +
-      labs( x="Calendar date", y="Cumulative case "
+      labs( x="Calendar date (month-year)", y="Cumulative case "
       ) +
-      scale_x_date(date_breaks = paste0(tg_date_breaks1," days"),date_labels = "%b-%Y")+
+      scale_x_date(date_breaks = paste0(tg_date_breaks1," days"),date_labels = "%b-%y")+
       theme_linedraw() +
       theme_light()+
       theme(axis.text.x = element_text(angle = 0, hjust = 1),
@@ -226,9 +226,9 @@ server <- function(input, output) {
       geom_line(aes(x=Dates, y=daily_smoothed_positive), color = "red", size = 1)+
       geom_line(aes(x=Dates, y=daily_smoothed_death*50),color = "blue", size = 1)+
       scale_y_continuous(sec.axis = sec_axis(~.*(1/50), name = "7-day average deaths"))+
-      labs( x="Calendar date", y="7-day average positive tests"
+      labs( x="Calendar date (month-year)", y="7-day average positive tests"
       ) +
-      scale_x_date(date_breaks = paste0(tg_date_breaks1," days"),date_labels = "%b-%Y")+
+      scale_x_date(date_breaks = paste0(tg_date_breaks1," days"),date_labels = "%b-%y")+
       theme_linedraw() +
       theme_light()+
       theme(text=element_text(size=18,family="serif"),
@@ -248,8 +248,8 @@ server <- function(input, output) {
     ggplot(data = df_vaccinated_tg, aes(x=dates, y=vaccinated, fill=gr))+
       geom_area(color='black', size=0.3, alpha=1) + # Puts a black line to separate the 2
       scale_fill_brewer(palette = 'Greens', direction = -1) +
-      labs( x="Calendar date", y="Number of people vaccinated ", fill = " ") +
-      scale_x_date(date_breaks = paste0(tg_date_breaks2," days"),date_labels = "%b-%Y") +
+      labs( x="Calendar date (month-year)", y="Number of people vaccinated ", fill = " ") +
+      scale_x_date(date_breaks = paste0(tg_date_breaks2," days"),date_labels = "%b-%y") +
       theme_linedraw() +
       theme_light()+
       theme(axis.text.x = element_text(angle = 0, hjust = 1),
@@ -267,8 +267,8 @@ server <- function(input, output) {
       geom_area(color='black', size=0.3, alpha=1) + # Puts a black line to separate the 2
       scale_fill_brewer(palette = 'Greens', direction = -1) +
       scale_y_continuous(labels = function(x) paste0(x, "%")) +
-      labs( x="Calendar date", y="% of the population vaccinated ", fill = " ") +
-      scale_x_date(date_breaks = paste0(tg_date_breaks2," days"),date_labels = "%b-%Y") +
+      labs( x="Calendar date (month-year)", y="% of the population vaccinated ", fill = " ") +
+      scale_x_date(date_breaks = paste0(tg_date_breaks2," days"),date_labels = "%b-%y") +
       theme_linedraw() +
       theme_light()+
       theme(axis.text.x = element_text(angle = 0, hjust = 1),
@@ -328,9 +328,9 @@ server <- function(input, output) {
     ggplot(data=df_gh[which(df_gh$Dates<=date_case_reported_gh),])+
       geom_bar(aes(x = as.Date(Dates,"%Y-%m-%d"), y=daily_interpolated_positive, colour = "Inc1"), stat = "identity")+
       geom_line(aes(x=as.Date(Dates,"%Y-%m-%d"), y=daily_smoothed_positive, colour = "Inc2"), size = 1)+
-      labs( x="Calendar date", y="Daily positive tests"
+      labs( x="Calendar date (month-year)", y="Daily positive tests"
       ) +
-      scale_x_date(date_breaks = paste0(gh_date_breaks1," days"),date_labels = "%b-%Y")+
+      scale_x_date(date_breaks = paste0(gh_date_breaks1," days"),date_labels = "%b-%y")+
       scale_colour_manual(name = " ",
                           values=c(Inc1="deepskyblue2",Inc2 = "blue"),
                           labels=c(Inc1="Positive tests", Inc2="7-day average positive tests")) +
@@ -356,10 +356,10 @@ server <- function(input, output) {
       scale_colour_manual(name = " ",
                           values=c(base="black",Rt = "red"),
                           labels=c(base="Continued spread threshold", Rt="Reproduction number + 95% CI")) +
-      labs( x="Calendar date", y="New infections per infected (Rt)"
+      labs( x="Calendar date (month-year)", y="New infections per infected (Rt)"
             ,title = "Note: Only reported positive cases are considered"
       )+
-      scale_x_date(date_breaks = paste0(gh_date_breaks1," days"),date_labels = "%b-%Y") +
+      scale_x_date(date_breaks = paste0(gh_date_breaks1," days"),date_labels = "%b-%y") +
       theme_linedraw() +
       theme_light()+
       theme(axis.text.x = element_text(angle = 0, hjust = 1),
@@ -372,9 +372,9 @@ server <- function(input, output) {
     ggplot(data=melt_gh, aes(x = Dates, y = Casedata, fill = Casetype))+
       geom_bar(stat = 'identity',position = 'dodge') +
       scale_fill_manual(" ", values = c("Active" = "deepskyblue1", "Deaths" = "black", "Recovered" = "goldenrod3")) +
-      labs( x="Calendar date", y="Cumulative case "
+      labs( x="Calendar date (month-year)", y="Cumulative case "
       ) +
-      scale_x_date(date_breaks = paste0(gh_date_breaks1," days"),date_labels = "%b-%Y")+
+      scale_x_date(date_breaks = paste0(gh_date_breaks1," days"),date_labels = "%b-%y")+
       theme_linedraw() +
       theme_light()+
       theme(axis.text.x = element_text(angle = 0, hjust = 1),
@@ -391,9 +391,9 @@ server <- function(input, output) {
       geom_line(aes(x=Dates, y=daily_smoothed_positive), color = "red", size = 1)+
       geom_line(aes(x=Dates, y=daily_smoothed_death*50),color = "blue", size = 1)+
       scale_y_continuous(sec.axis = sec_axis(~.*(1/50), name = "7-day average deaths"))+
-      labs( x="Calendar date", y="7-day average positive tests"
+      labs( x="Calendar date (month-year)", y="7-day average positive tests"
       ) +
-      scale_x_date(date_breaks = paste0(gh_date_breaks1," days"),date_labels = "%b-%Y")+
+      scale_x_date(date_breaks = paste0(gh_date_breaks1," days"),date_labels = "%b-%y")+
       theme_linedraw() +
       theme_light()+
       theme(text=element_text(size=18,family="serif"),
@@ -413,8 +413,8 @@ server <- function(input, output) {
     ggplot(data = df_vaccinated_gh, aes(x=dates, y=vaccinated, fill=gr))+
       geom_area(color='black', size=0.3, alpha=1) + # Puts a black line to separate the 2
       scale_fill_brewer(palette = 'Greens', direction = -1) +
-      labs( x="Calendar date", y="Number of people vaccinated ", fill = " ") +
-      scale_x_date(date_breaks = paste0(gh_date_breaks2," days"),date_labels = "%b-%Y") +
+      labs( x="Calendar date (month-year)", y="Number of people vaccinated ", fill = " ") +
+      scale_x_date(date_breaks = paste0(gh_date_breaks2," days"),date_labels = "%b-%y") +
       theme_linedraw() +
       theme_light()+
       theme(axis.text.x = element_text(angle = 0, hjust = 1),
@@ -432,8 +432,8 @@ server <- function(input, output) {
       geom_area(color='black', size=0.3, alpha=1) + # Puts a black line to separate the 2
       scale_fill_brewer(palette = 'Greens', direction = -1) +
       scale_y_continuous(labels = function(x) paste0(x, "%")) +
-      labs( x="Calendar date", y="% of the population vaccinated ", fill = " ") +
-      scale_x_date(date_breaks = paste0(gh_date_breaks2," days"),date_labels = "%b-%Y") +
+      labs( x="Calendar date (month-year)", y="% of the population vaccinated ", fill = " ") +
+      scale_x_date(date_breaks = paste0(gh_date_breaks2," days"),date_labels = "%b-%y") +
       theme_linedraw() +
       theme_light()+
       theme(axis.text.x = element_text(angle = 0, hjust = 1),
@@ -493,9 +493,9 @@ server <- function(input, output) {
     ggplot(data=df_ng[which(df_ng$Dates<=date_case_reported_ng),])+
       geom_bar(aes(x = as.Date(Dates,"%Y-%m-%d"), y=daily_interpolated_positive, colour = "Inc1"), stat = "identity")+
       geom_line(aes(x=as.Date(Dates,"%Y-%m-%d"), y=daily_smoothed_positive, colour = "Inc2"), size = 1)+
-      labs( x="Calendar date", y="Daily positive tests"
+      labs( x="Calendar date (month-year)", y="Daily positive tests"
       ) +
-      scale_x_date(date_breaks = paste0(ng_date_breaks1," days"),date_labels = "%b-%Y")+
+      scale_x_date(date_breaks = paste0(ng_date_breaks1," days"),date_labels = "%b-%y")+
       scale_colour_manual(name = " ",
                           values=c(Inc1="deepskyblue2",Inc2 = "blue"),
                           labels=c(Inc1="Positive tests", Inc2="7-day average positive tests")) +
@@ -521,10 +521,10 @@ server <- function(input, output) {
       scale_colour_manual(name = " ",
                           values=c(base="black",Rt = "red"),
                           labels=c(base="Continued spread threshold", Rt="Reproduction number + 95% CI")) +
-      labs( x="Calendar date", y="New infections per infected (Rt)"
+      labs( x="Calendar date (month-year)", y="New infections per infected (Rt)"
             ,title = "Note: Only reported positive cases are considered"
       )+
-      scale_x_date(date_breaks = paste0(ng_date_breaks1," days"),date_labels = "%b-%Y") +
+      scale_x_date(date_breaks = paste0(ng_date_breaks1," days"),date_labels = "%b-%y") +
       theme_linedraw() +
       theme_light()+
       theme(axis.text.x = element_text(angle = 0, hjust = 1),
@@ -537,9 +537,9 @@ server <- function(input, output) {
     ggplot(data=melt_ng, aes(x = Dates, y = Casedata, fill = Casetype))+
       geom_bar(stat = 'identity',position = 'dodge') +
       scale_fill_manual(" ", values = c("Active" = "deepskyblue1", "Deaths" = "black", "Recovered" = "goldenrod3")) +
-      labs( x="Calendar date", y="Cumulative case "
+      labs( x="Calendar date (month-year)", y="Cumulative case "
       ) +
-      scale_x_date(date_breaks = paste0(ng_date_breaks1," days"),date_labels = "%b-%Y")+
+      scale_x_date(date_breaks = paste0(ng_date_breaks1," days"),date_labels = "%b-%y")+
       theme_linedraw() +
       theme_light()+
       theme(axis.text.x = element_text(angle = 0, hjust = 1),
@@ -556,9 +556,9 @@ server <- function(input, output) {
       geom_line(aes(x=Dates, y=daily_smoothed_positive), color = "red", size = 1)+
       geom_line(aes(x=Dates, y=daily_smoothed_death*50),color = "blue", size = 1)+
       scale_y_continuous(sec.axis = sec_axis(~.*(1/50), name = "7-day average deaths"))+
-      labs( x="Calendar date", y="7-day average positive tests"
+      labs( x="Calendar date (month-year)", y="7-day average positive tests"
       ) +
-      scale_x_date(date_breaks = paste0(ng_date_breaks1," days"),date_labels = "%b-%Y")+
+      scale_x_date(date_breaks = paste0(ng_date_breaks1," days"),date_labels = "%b-%y")+
       theme_linedraw() +
       theme_light()+
       theme(text=element_text(size=18,family="serif"),
@@ -578,8 +578,8 @@ server <- function(input, output) {
     ggplot(data = df_vaccinated_ng, aes(x=dates, y=vaccinated, fill=gr))+
       geom_area(color='black', size=0.3, alpha=1) + # Puts a black line to separate the 2
       scale_fill_brewer(palette = 'Greens', direction = -1) +
-      labs( x="Calendar date", y="Number of people vaccinated ", fill = " ") +
-      scale_x_date(date_breaks = paste0(ng_date_breaks2," days"),date_labels = "%b-%Y") +
+      labs( x="Calendar date (month-year)", y="Number of people vaccinated ", fill = " ") +
+      scale_x_date(date_breaks = paste0(ng_date_breaks2," days"),date_labels = "%b-%y") +
       theme_linedraw() +
       theme_light()+
       theme(axis.text.x = element_text(angle = 0, hjust = 1),
@@ -597,8 +597,8 @@ server <- function(input, output) {
       geom_area(color='black', size=0.3, alpha=1) + # Puts a black line to separate the 2
       scale_fill_brewer(palette = 'Greens', direction = -1) +
       scale_y_continuous(labels = function(x) paste0(x, "%")) +
-      labs( x="Calendar date", y="% of the population vaccinated ", fill = " ") +
-      scale_x_date(date_breaks = paste0(ng_date_breaks2," days"),date_labels = "%b-%Y") +
+      labs( x="Calendar date (month-year)", y="% of the population vaccinated ", fill = " ") +
+      scale_x_date(date_breaks = paste0(ng_date_breaks2," days"),date_labels = "%b-%y") +
       theme_linedraw() +
       theme_light()+
       theme(axis.text.x = element_text(angle = 0, hjust = 1),
