@@ -1,13 +1,11 @@
-# All the small pieces
+#############################################################################################################################
+# This code retreives raw COVID data (cases + testing + vaccination) published by institutions for NIGERIA
+# Calculate key metrics to be displayed on the dashbord 
+#############################################################################################################################
 # create the server functions for the dashboard 
-# Get all the data
-library(dplyr) # data manipulation
-library(zoo) # Calculate rollmean
-library(EpiEstim) # Estimate R
-library(imputeTS) # Time serie data interpolation
-library(data.table) # frollmean
-library(lubridate)
-library(ggplot2)
+source("utils.R") # load packages
+reload_source()
+
 data = read.csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv")
 data_ng <- data[data$Country.Region=="Nigeria",]
 total_positive = as.numeric(data_ng[5:length(data_ng)])
@@ -17,12 +15,7 @@ total_death = as.numeric(data_ng[5:length(data_ng)])
 data = read.csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv")
 data_ng <- data[data$Country.Region=="Nigeria",]
 total_recovery = as.numeric(data_ng[5:length(data_ng)])
-#Incidence_positive <- c(positive[1],positive[2:length(positive)]
-#                        -positive[1:length(positive)-1])
-#Incidence_death <- c(death[1],death[2:length(death)]
-#                     -death[1:length(death)-1])
-#Incidence_recovery <- c(recovery[1],recovery[2:length(recovery)]
-#                        -recovery[1:length(recovery)-1])
+
 Dates = seq(as.Date("2020-01-22"),(as.Date("2020-01-22")+length(total_positive)-1),"day")
 df_ng = data.frame(Dates,total_positive,total_death,total_recovery)
 date_case_reported_ng = df_ng$Dates[nrow(df_ng)] # Get the date of the last reported data
@@ -86,8 +79,7 @@ df_ng <- df_ng %>%
   mutate(interpolated_active = ifelse((!is.na(total_interpolated_positive) & !is.na(total_interpolated_death) & !is.na(total_interpolated_recovery)),total_interpolated_positive - (total_interpolated_death+total_interpolated_recovery),NA_real_))
 
 data = read.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/testing/covid-testing-all-observations.csv")
-#data_ng <- data[data$ISO.code=="TGO",c("Date","Daily.change.in.cumulative.total","Cumulative.total","Daily.change.in.cumulative.total.per.thousand","Cumulative.total.per.thousand","X7.day.smoothed.daily.change","X7.day.smoothed.daily.change.per.thousand")]
-# colnames(data_ng)=c("Dates","DailyTests","CumTests","DailyTestsK","CumTestsK","SmoothedTests","SmoothedTestsK")
+
 data_ng <- data[data$ISO.code=="NGA",c("Date","Daily.change.in.cumulative.total","Cumulative.total")]
 colnames(data_ng)=c("Dates","daily_tests","total_tests")
 date_test_reported_ng = data_ng$Dates[nrow(data_ng)] # Get the date of the last reported data
@@ -122,7 +114,7 @@ data_ng <- data_ng %>%
   mutate(daily_smoothed_tests = if_else(daily_smoothed_tests >= 0, daily_smoothed_tests, NA_real_))
 # Merge test and case data
 df_ng = data.frame(df_ng,daily_tests = NA_real_,total_tests = NA_real_, total_interpolated_tests = NA_real_, daily_interpolated_tests = NA_real_, daily_smoothed_tests = NA_real_)
-df_ng[which(df_ng$Dates==data_ng$Dates[1]):which(df_ng$Dates==data_ng$Dates[nrow(data_ng)]),c(15:19)] = data_ng[,-1]
+df_ng[df_ng$Dates %in% as.Date(data_ng$Dates),c("daily_tests","total_tests","total_interpolated_tests","daily_interpolated_tests","daily_smoothed_tests")] = data_ng[,c("daily_tests","total_tests","total_interpolated_tests","daily_interpolated_tests","daily_smoothed_tests")]
 df = df_ng[which(df_ng$Dates<=date_case_reported_ng),] # Limite the data to the current reported
 Inc = df$daily_smoothed_positive
 Inc[is.na(Inc)]=0
