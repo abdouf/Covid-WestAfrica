@@ -1,3 +1,7 @@
+#############################################################################################################################
+# This code generates the user interface, the structure of what the user sees in the App
+#############################################################################################################################
+# The following packages are used for data transformation and manipulation
 library(shiny)
 library(shinydashboard)
 library(rappdirs)
@@ -215,9 +219,10 @@ ui <- dashboardPage(
                  ", 
                          " ",
                          "We calculated the average daily tests performed during current week and last week, and we quantified the relative percent change in testing current week compared to last week. 
-                  We calculated the average positivity rate current week and last week, and we quantified the relative percent change in positivity rate current week compared to last week. 
-                  We calculated the average daily death due to COVID reported during current week and last week, and we quantified the relative percent change in COVID deaths current week compared to last week.
+                  We calculated the average positivity rate during current week and last week, and we quantified the relative percent change in positivity rate current week compared to last week. 
+                  We calculated the average daily death due to COVID reported during current week and last week, and we quantified the relative percent change in COVID deaths during current week compared to last week.
                   A week is 6 days from the most recent data report date, and last week is from 7 to 13 days from the most recent data report date. For the daily tests, positive tests and deaths we used 7-day smoothed average to correct for reporting delays.
+                  If daily tests during last week or current week are not reported then NA% is printed on the dashboard for testing and positivity rate. 
                   ",
                          "The effective reproduction number is estimated using EpiEstim R package. Only reported positive cases,
                  have been considered. Asymptomatic transmission, unreported cases and intervention are ignored. 
